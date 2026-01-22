@@ -18,41 +18,47 @@
             <input type="number" formControlName="cantidad" class="form-control">
         </div>
         <div class="form-button">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">Guardar</button>
         </div>
+        @if (banderaError == true) {
+        <h3>{{ errorMessage }}</h3>
+        }
 
     </form>
+    <div class="scrollable-container">
+        @if (producto.length > 0) {
+        <h3>Producto en stock</h3>
+        <table class="table">
 
-    @if (producto.length > 0) {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>SKU</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Borrar</th>
-                <th>Actualizar</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (p of producto; track p.id) {
-            <tr>
-                <td>{{ p.id }}</td>
-                <td>{{ p.sku }}</td>
-                <td>{{ p.nombre }}</td>
-                <td>{{ p.precio }}</td>
-                <td>{{ p.cantidad }}</td>
-                <td><button type="submit" class="btn btn-danger">Borrar</button></td>
-                <td><button type="submit" class="btn btn-warning">Actualizar</button></td>
-            </tr>
-            }
-        </tbody>
-    </table>
-    } @else {
-    <p>No hay productos</p>
-    }
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>SKU</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Borrar</th>
+                    <th>Actualizar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (p of producto; track p.id) {
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.sku }}</td>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.precio }}</td>
+                    <td>{{ p.cantidad }}</td>
+                    <td><button type="submit" class="btn btn-danger">Borrar</button></td>
+                    <td><button type="submit" class="btn btn-warning">Actualizar</button></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        } @else {
+        <p>No hay productos</p>
+        }
+    </div>
 
 </div>
 

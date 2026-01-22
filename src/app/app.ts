@@ -17,6 +17,8 @@ export class App implements OnInit {
 
   productoForm !: FormGroup;
   producto: any[] = [];
+  banderaError: boolean = false;
+  errorMessage: String = '';
 
   constructor(
     public fb: FormBuilder,
@@ -32,16 +34,34 @@ export class App implements OnInit {
       cantidad: ['', Validators.required],
     })
 
+    this.mostrarTabla();
+
+  }
+
+  mostrarTabla(): void {
     this.productoService.getAllProductos().subscribe(resp => {
       this.producto = resp.data;
       console.log(resp.data);
     },
-      error => { console.error(error) }
+      error => {
+        console.error(error)
+      }
     )
-
   }
 
-  guardar() {
+  guardar(): void {
+    this.productoService.saveProducto(this.productoForm.value).subscribe(resp => {
+      this.banderaError = false;
+      this.productoForm.reset();
+      this.producto.push(resp.data);
+    },
+      error => {
+        console.error(error)
+        this.errorMessage = error.error.data.message
+        this.banderaError = true;
+      }
+
+    )
 
   }
 

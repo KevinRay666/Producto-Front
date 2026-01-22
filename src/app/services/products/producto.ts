@@ -17,5 +17,9 @@ export class Producto {
     return this.httpClient.get(this.API_SERVER);
   }
 
+  public saveProducto(product:any): Observable<any>{
+    return this.httpClient.post(this.API_SERVER,product);
+  }
+
 
 }

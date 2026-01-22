@@ -7,3 +7,9 @@
 .form-button{
     margin: 10px;
 }
+
+.scrollable-container {
+  height: 500px; /* O la altura que necesites */
+  overflow-y: scroll; /* Muestra la barra solo cuando es necesario */
+  /* o overflow-y: scroll; para siempre mostrarla */
+}
