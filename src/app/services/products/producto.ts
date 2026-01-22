@@ -21,5 +21,13 @@ export class Producto {
     return this.httpClient.post(this.API_SERVER,product);
   }
 
+  public deleteProducto(id: number):Observable<any>{
+    return this.httpClient.delete(this.API_SERVER+"/"+id);
+  }
+
+  public editarProducto(product:any):Observable<any>{
+    return this.httpClient.put(this.API_SERVER+"/"+product.id,product);
+  }
+
 
 }
