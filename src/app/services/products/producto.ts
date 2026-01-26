@@ -54,7 +54,7 @@ export class Producto {
     return this.httpClient.put(this.API_SERVER + "/" + product.id, product, { headers });
   }
 
-  public selectProductoId(id: number): Observable<any> {
+  public selectProductoId(id: string): Observable<any> {
     const token = localStorage.getItem("authToken");
 
     const headers = new HttpHeaders({

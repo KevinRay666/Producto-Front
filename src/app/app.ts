@@ -20,11 +20,13 @@ export class App implements OnInit {
   logInForm !: FormGroup;
   productoForm !: FormGroup;
   productos: any[] = [];
+  producto: any;
   banderaError: boolean = false;
   errorMessage: String = '';
   banderaLogin: boolean = false;
   userName: String = '';
   banderaPermisos: boolean = true;
+  selectId: any;
 
   constructor(
     public fb: FormBuilder,
@@ -129,8 +131,22 @@ export class App implements OnInit {
     })
   }
 
-  mostrarProductoById(){
-    console.log();
+  mostrarProductoById(id: string){
+    console.log(id);
+    this.productoService.selectProductoId(id).subscribe(resp => {
+      this.productoForm.setValue({
+      id: resp.data.id,
+      sku: resp.data.sku,
+      nombre: resp.data.nombre,
+      precio: resp.data.precio,
+      cantidad: resp.data.cantidad
+    })
+      
+    },
+      error => {
+        console.error(error)
+      }
+    )
   }
 
 }

@@ -42,8 +42,8 @@
         @if(!banderaPermisos){
         <div>
             <label>Id</label>
-            <select (click)="mostrarProductoById()">
-                <option value="">Seleccione ID producto</option>
+            <select #selectId (change)="mostrarProductoById(selectId.value)">
+                <option>Seleccione ID producto</option>
                 @for (producto of productos; track producto.id) {
                 <option [value]="producto.id">
                     {{ producto.id }}
