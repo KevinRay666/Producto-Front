@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { Producto } from './services/products/producto';
-import { tick } from '@angular/core/testing';
+import { Auth } from './services/auths/auth';
 
 
 @Component({
@@ -10,34 +10,45 @@ import { tick } from '@angular/core/testing';
   imports: [
     RouterOutlet,
     ReactiveFormsModule,
-    FormsModule],
+    FormsModule
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
 
+  logInForm !: FormGroup;
   productoForm !: FormGroup;
   productos: any[] = [];
   banderaError: boolean = false;
   errorMessage: String = '';
+  banderaLogin: boolean = false;
+  userName: String = '';
+  banderaPermisos: boolean = true;
 
   constructor(
     public fb: FormBuilder,
-    public productoService: Producto
+    public logF: FormBuilder,
+    public productoService: Producto,
+    public authService: Auth
   ) { }
   ngOnInit(): void {
     this.productoForm = this.fb.group({
-      id:[''],
+      id: [''],
       sku: ['', Validators.required],
       nombre: ['', Validators.required],
       precio: ['', Validators.required],
       cantidad: ['', Validators.required],
     })
 
-    this.mostrarTabla();
+    this.logInForm = this.logF.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+
   }
 
-  mostrarTabla(): void {
+  cargarProductos(): void {
     this.productoService.getAllProductos().subscribe(resp => {
       this.productos = resp.data;
       console.log(resp.data);
@@ -52,7 +63,8 @@ export class App implements OnInit {
     this.productoService.saveProducto(this.productoForm.value).subscribe(resp => {
       this.banderaError = false;
       this.productoForm.reset();
-      this.productos.push(resp.data);
+      this.cargarProductos();
+      this.banderaError = false;
     },
       error => {
         console.error(error)
@@ -62,11 +74,37 @@ export class App implements OnInit {
     )
   }
 
+  logIn(){
+    this.authService.logIn(this.logInForm.value).subscribe(resp => {
+      console.log(this.logInForm.value)
+      console.log(resp)
+      this.banderaLogin = true;
+      if(this.logInForm.value.username != 'admin'){
+        this.banderaPermisos = false;
+      }
+      this.banderaError = false;
+      this.cargarProductos();
+    }, error =>{
+      console.error(error)
+      this.errorMessage = error.error.data
+      this.banderaError = true;
+    })
+  }
+
+  cerrarSesion(){
+    this.authService.logout();
+    this.banderaLogin = false;
+    this.banderaPermisos = true;
+    this.banderaError = false;
+  }
+
   eliminar(producto: any) {
     this.productoService.deleteProducto(producto.id).subscribe(resp => {
       console.log(resp)
       if (resp.data === false) {
-        this.productos.pop();
+        this.productoForm.reset();
+         this.cargarProductos();
+         this.banderaError = false;
       }
     })
   }
@@ -76,7 +114,7 @@ export class App implements OnInit {
       id: product.id,
       sku: product.sku,
       nombre: product.nombre,
-      precio:product.precio,
+      precio: product.precio,
       cantidad: product.cantidad
     })
   }
@@ -86,8 +124,13 @@ export class App implements OnInit {
     this.productoService.editarProducto(this.productoForm.value).subscribe(resp => {
       console.log(resp)
       this.productoForm.reset();
-      this.mostrarTabla();
+      this.cargarProductos();
+      this.banderaError = false;
     })
+  }
+
+  mostrarProductoById(){
+    console.log();
   }
 
 }
