@@ -1,59 +1,17 @@
-# PruebaFront
+Al inicio de este proyecto se muestra una pantalla de LogIn en donde se ingresaran las credenciales del usuario.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+Hay dos tipos de usuario: Admin y User
 
-## Development server
+El user solo puede consultar todos los Productos que hay y este no puede crearlos ni modificarlos
 
-To start a local development server, run:
+El usuario de tipo admin tiene todos los permisos
 
-```bash
-ng serve
-```
+Puede consultar todos los productos
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Puede agregar mas producots 
 
-## Code scaffolding
+Puede actualizar un producto ya existente
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Puede eliminar un producto ya existente
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+A su vez este proyecto al consumir la api Login este recibe lo que es el JWT, que le permite realizar las acciones mencionadas anteriormente
