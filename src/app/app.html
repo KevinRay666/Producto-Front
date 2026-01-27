@@ -1,133 +1,18 @@
 @if (banderaLogin == false) {
 
-<div class="formularioRegistro"></div>
-<div class="container">
-    <div class="left-panel">
-        <h1>Welcome back</h1>
-    </div>
-    <form [formGroup]="logInForm" (ngSubmit)="logIn()">
-        <div class="login-box">
-            <div class="form-group">
-                <input type="text" formControlName="username" placeholder="Username">
-            </div>
-
-            <div class="form-group">
-                <input type="password" formControlName="password" placeholder="Password">
-            </div>
-            @if(banderaError){
-            <div class="form-group">
-                <label> {{errorMessage}} </label>
-            </div>
-            }
-
-            <div class="form-group">
-                <button type="submit">Sign in</button>
-            </div>
-        </div>
-    </form>
-
-</div>
-
+<app-login 
+  (banderaLoginEmmit)="banderaLogin = $event" 
+  (banderaPermisosEmmit)="banderaPermisos = $event">
+</app-login>
 }
-
-
 
 @if (banderaLogin == true) {
-
 <div class="formularioRegistro">
     <button type="button" (click)="cerrarSesion()">Cerrar Sesion</button>
-    <label for=""> {{userName}} </label>
-    <h2>Crear producto</h2>
-    <form [formGroup]="productoForm" (ngSubmit)="guardar()">
-        @if(!banderaPermisos){
-        <div>
-            <label>Id</label>
-            <select #selectId (change)="mostrarProductoById(selectId.value)">
-                <option>Seleccione ID producto</option>
-                @for (producto of productos; track producto.id) {
-                <option [value]="producto.id">
-                    {{ producto.id }}
-                </option>
-                }
-            </select>
-        </div>
-
-        }
-
-
-        <div class=" form-group">
-            <label>Sku</label>
-            <input type="text" formControlName="sku" class="form-control">
-        </div>
-        <div class=" form-group">
-            <label>Nombre</label>
-            <input type="text" formControlName="nombre" class="form-control">
-        </div>
-        <div class=" form-group">
-            <label>Precio</label>
-            <input type="number" formControlName="precio" class="form-control" step="0.01" min="0">
-        </div>
-        <div class="form-group">
-            <label>Cantidad</label>
-            <input type="number" formControlName="cantidad" class="form-control">
-        </div>
-
-        @if (banderaPermisos) {
-        <div class="form-button">
-            <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">Guardar</button>
-        </div>
-        }
-
-        @if (banderaError == true) {
-        <h3>{{ errorMessage }}</h3>
-        }
-
-    </form>
-    <div class="scrollable-container">
-        @if (productos.length > 0) {
-        <h3>Producto en stock</h3>
-        <table class="table">
-
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>SKU</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    @if(banderaPermisos){
-                    <th>Borrar</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @for (p of productos; track p.id) {
-                <tr (click)="seleccionar(p)" style="cursor: pointer">
-                    <td>{{ p.id }}</td>
-                    <td>{{ p.sku }}</td>
-                    <td>{{ p.nombre }}</td>
-                    <td>{{ p.precio }}</td>
-                    <td>{{ p.cantidad }}</td>
-                    @if (banderaPermisos) {
-                    <td><button type="button" class="btn btn-danger" (click)="eliminar(p)">Borrar</button></td>
-                    }
-
-                </tr>
-
-                }
-            </tbody>
-            @if (banderaPermisos) {
-            <button type="submit" class="btn btn-warning" [disabled]="productoForm.invalid"
-                (click)="actualizar()">Actualizar</button>
-            }
-
-        </table>
-        } @else {
-        <p>No hay productos</p>
-        }
-    </div>
-
+    <app-forms [banderaLogin]="banderaLogin" [banderaPermisos]="banderaPermisos">
+    </app-forms>
 </div>
 
 }
+
 <router-outlet />

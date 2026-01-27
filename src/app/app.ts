@@ -3,6 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { Producto } from './services/products/producto';
 import { Auth } from './services/auths/auth';
+import { LoginComponent } from "./login/login.component/login.component";
+import { FormsComponent } from "./componentes/forms.component/forms.component";
 
 
 @Component({
@@ -10,8 +12,10 @@ import { Auth } from './services/auths/auth';
   imports: [
     RouterOutlet,
     ReactiveFormsModule,
-    FormsModule
-  ],
+    FormsModule,
+    LoginComponent,
+    FormsComponent
+],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -76,6 +80,7 @@ export class App implements OnInit {
     )
   }
 
+  /*
   logIn(){
     this.authService.logIn(this.logInForm.value).subscribe(resp => {
       console.log(this.logInForm.value)
@@ -92,6 +97,8 @@ export class App implements OnInit {
       this.banderaError = true;
     })
   }
+*/
+
 
   cerrarSesion(){
     this.authService.logout();
@@ -147,6 +154,11 @@ export class App implements OnInit {
         console.error(error)
       }
     )
+  }
+
+  setBandera(bandera: boolean){
+    this.banderaLogin = bandera;
+    console.log(bandera)
   }
 
 }
