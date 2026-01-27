@@ -57,7 +57,7 @@ export class App implements OnInit {
   cargarProductos(): void {
     this.productoService.getAllProductos().subscribe(resp => {
       this.productos = resp.data;
-      console.log(resp.data);
+      
     },
       error => {
         console.error(error)
@@ -109,7 +109,7 @@ export class App implements OnInit {
 
   eliminar(producto: any) {
     this.productoService.deleteProducto(producto.id).subscribe(resp => {
-      console.log(resp)
+      
       if (resp.data === false) {
         this.productoForm.reset();
          this.cargarProductos();
@@ -131,7 +131,7 @@ export class App implements OnInit {
   actualizar() {
     console.log(this.productoForm.value)
     this.productoService.editarProducto(this.productoForm.value).subscribe(resp => {
-      console.log(resp)
+      
       this.productoForm.reset();
       this.cargarProductos();
       this.banderaError = false;
@@ -158,7 +158,7 @@ export class App implements OnInit {
 
   setBandera(bandera: boolean){
     this.banderaLogin = bandera;
-    console.log(bandera)
+    
   }
 
 }

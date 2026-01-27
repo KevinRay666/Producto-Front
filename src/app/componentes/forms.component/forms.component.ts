@@ -52,7 +52,7 @@ export class FormsComponent implements OnInit{
 
     guardar(): void {
     this.productoService.saveProducto(this.productoForm.value).subscribe(resp => {
-      console.log("Hola");
+      
       this.banderaError = false;
       this.productoForm.reset();
       this.cargarProductos();
@@ -69,7 +69,7 @@ export class FormsComponent implements OnInit{
     cargarProductos(): void {
     this.productoService.getAllProductos().subscribe(resp => {
       this.productos = resp.data;
-      console.log(resp.data);
+      
     },
       error => {
         console.error(error)
@@ -78,8 +78,6 @@ export class FormsComponent implements OnInit{
   }
 
     mostrarProductoById(id: string){
-    console.log("Hola");
-    console.log(id);
     this.productoService.selectProductoId(id).subscribe(resp => {
       this.productoForm.setValue({
       id: resp.data.id,
@@ -109,7 +107,7 @@ export class FormsComponent implements OnInit{
   actualizar() {
     console.log(this.productoForm.value)
     this.productoService.editarProducto(this.productoForm.value).subscribe(resp => {
-      console.log(resp)
+      
       this.productoForm.reset();
       this.cargarProductos();
       this.banderaError = false;

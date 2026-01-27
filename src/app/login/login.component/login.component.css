@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Panel izquierdo */
+.left-panel {
+  flex: 1;
+  background: linear-gradient(135deg, #0d6efd, #5a9cff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.left-panel h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Panel derecho */
+form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+}
+
+/* Caja del login */
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 320px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #0d6efd;
+}
+
+/* Botón */
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #0d6efd;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0b5ed7;
+}
+
+/* Error */
+label {
+  color: red;
+  font-size: 13px;
+  text-align: center;
+  display: block;
+}

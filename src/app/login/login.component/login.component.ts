@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit{
     logIn(){
     this.authService.logIn(this.logInForm.value).subscribe(resp => {
       console.log(this.logInForm.value)
-      console.log(resp)
+      
       this.banderaLoginEmmit.emit(true);
       if(this.logInForm.value.username != 'admin'){
         this.banderaPermisosEmmit.emit(false);
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit{
     cargarProductos(): void {
     this.productoService.getAllProductos().subscribe(resp => {
       this.productos = resp.data;
-      console.log(resp.data);
+      
     },
       error => {
         console.error(error)
